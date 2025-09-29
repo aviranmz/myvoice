@@ -413,8 +413,8 @@ function App() {
         rel="noopener noreferrer"
         aria-label="צור קשר בוואטסאפ"
         onClick={() => {
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'click', {
+          if (typeof window.gtag !== 'undefined') {
+            window.gtag('event', 'click', {
               event_category: 'engagement',
               event_label: 'whatsapp_button',
             });
@@ -430,8 +430,8 @@ function App() {
         className="mobile-call"
         aria-label="התקשר עכשיו"
         onClick={() => {
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'click', {
+          if (typeof window.gtag !== 'undefined') {
+            window.gtag('event', 'click', {
               event_category: 'engagement',
               event_label: 'mobile_call_button',
             });
