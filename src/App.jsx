@@ -4,6 +4,13 @@ import './App.css';
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    message: '',
+  });
+  const [formErrors, setFormErrors] = useState({});
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const toggleFaq = index => {
     setOpenFaq(openFaq === index ? null : index);
@@ -15,6 +22,44 @@ function App() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
     setMobileMenuOpen(false);
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.name.trim()) errors.name = 'שם מלא נדרש';
+    if (!formData.phone.trim()) errors.phone = 'טלפון נדרש';
+    if (formData.phone && !/^[\d\-+()\s]+$/.test(formData.phone)) {
+      errors.phone = 'מספר טלפון לא תקין';
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (formErrors[name]) {
+      setFormErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (validateForm()) {
+      // Track form submission
+      if (typeof window.gtag !== 'undefined') {
+        window.gtag('event', 'form_submit', {
+          event_category: 'engagement',
+          event_label: 'contact_form',
+        });
+      }
+      setFormSubmitted(true);
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setFormSubmitted(false);
+        setFormData({ name: '', phone: '', message: '' });
+      }, 3000);
+    }
   };
 
   const faqData = [
@@ -332,6 +377,15 @@ function App() {
           <div className="footer-content">
             <div className="footer-info">
               <p>&copy; 2024 קול האזרח. כל הזכויות שמורות.</p>
+              <p
+                style={{
+                  fontSize: '0.8rem',
+                  opacity: 0.7,
+                  marginTop: '0.5rem',
+                }}
+              >
+                גרסה {import.meta.env.VITE_APP_VERSION || '1.0.0'}
+              </p>
             </div>
             <ul className="footer-links">
               <li>
@@ -358,8 +412,33 @@ function App() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="צור קשר בוואטסאפ"
+        onClick={() => {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+              event_category: 'engagement',
+              event_label: 'whatsapp_button',
+            });
+          }
+        }}
       >
         💬
+      </a>
+
+      {/* Mobile Call Button */}
+      <a
+        href="tel:+972505099936"
+        className="mobile-call"
+        aria-label="התקשר עכשיו"
+        onClick={() => {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'click', {
+              event_category: 'engagement',
+              event_label: 'mobile_call_button',
+            });
+          }
+        }}
+      >
+        📞 התקשר
       </a>
     </div>
   );

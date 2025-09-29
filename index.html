@@ -39,10 +39,48 @@
 
     <title>קול האזרח - מימוש זכויות רפואיות</title>
 
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "קול האזרח",
+        "description": "מימוש זכויות רפואיות - נכות כללית, תאונת עבודה, פטור ממס, תג נכה ועוד",
+        "url": "https://kol-haezrah.com",
+        "logo": "https://kol-haezrah.com/logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+972-50-509-9936",
+          "contactType": "customer service",
+          "availableLanguage": "Hebrew"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "IL"
+        },
+        "sameAs": ["https://wa.me/972505099936"]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "קול האזרח",
+        "url": "https://kol-haezrah.com",
+        "description": "מימוש זכויות רפואיות - נכות כללית, תאונת עבודה, פטור ממס, תג נכה ועוד",
+        "inLanguage": "he-IL",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://kol-haezrah.com/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+
     <!-- Google Analytics -->
     <script
       async
-      src="https://www.googletagmanager.com/gtag/js?id=G-EF3TND4Z7L"
+      src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA_ID%"
     ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -50,7 +88,7 @@
         dataLayer.push(arguments);
       }
       gtag('js', new Date());
-      gtag('config', 'G-EF3TND4Z7L');
+      gtag('config', '%VITE_GA_ID%');
     </script>
   </head>
   <body>
